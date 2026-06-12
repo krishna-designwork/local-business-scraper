@@ -4,6 +4,7 @@ Google Maps Business Scraper — GUI
 Usage: py gui.py
 """
 
+from __future__ import annotations
 import queue
 import threading
 

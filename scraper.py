@@ -9,6 +9,7 @@ CLI usage:
 Imported by pool.py — pass log_fn, progress_fn, record_fn, stop_event for full integration.
 """
 
+from __future__ import annotations
 import asyncio
 import argparse
 import json
