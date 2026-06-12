@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maps Scraper — Google Maps Business Scraper</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #181b22; --border: #2a2e38;
+    --text: #e8eaef; --muted: #9aa1ad; --blue: #4a9eff; --green: #34c574;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px; }
+  h1 { font-size: 2.4rem; margin-bottom: 8px; }
+  .tagline { color: var(--muted); font-size: 1.15rem; margin-bottom: 28px; }
+  .badges span { display: inline-block; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: .85rem; color: var(--muted); margin: 0 6px 8px 0; }
+  .cta { margin: 28px 0 40px; }
+  .btn { display: inline-block; padding: 13px 26px; border-radius: 10px; text-decoration: none; font-weight: 600; margin: 0 10px 10px 0; }
+  .btn-green { background: var(--green); color: #08130c; }
+  .btn-dark { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+  h2 { font-size: 1.3rem; margin: 36px 0 14px; color: var(--blue); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .card h3 { font-size: 1rem; margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: .92rem; }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; overflow-x: auto; font-size: .9rem; margin: 10px 0; }
+  code { color: var(--green); }
+  .note { background: #1d2433; border: 1px solid #2c3a52; border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 18px; color: var(--muted); font-size: .95rem; margin-top: 14px; }
+  ol { margin: 10px 0 0 22px; color: var(--muted); }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; }
+  a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🗺️ Maps Scraper</h1>
+  <p class="tagline">A multi-worker Google Maps business scraper with a desktop GUI. No proxies, no paid APIs — collects business data at scale into CSV and SQLite.</p>
+
+  <div class="badges">
+    <span>Python 3.10+</span><span>Windows &amp; macOS</span><span>MIT License</span><span>Playwright + CustomTkinter</span>
+  </div>
+
+  <div class="cta">
+    <a class="btn btn-green" href="https://github.com/krishna-designwork/local-business-scraper/archive/refs/heads/master.zip">⬇ Download (.zip)</a>
+    <a class="btn btn-dark" href="https://github.com/krishna-designwork/local-business-scraper">View Code on GitHub</a>
+  </div>
+
+  <div class="note">
+    <strong>Heads-up:</strong> this is a <em>desktop application</em> — it runs on your computer and drives real Chrome windows (that's how it avoids Google's bot detection). It can't run inside a web page; download it and run it locally.
+  </div>
+
+  <h2>Features</h2>
+  <div class="grid">
+    <div class="card"><h3>⚡ Up to 20 parallel workers</h3><p>Each with its own browser profile and isolated location queue.</p></div>
+    <div class="card"><h3>🥷 Anti-detection built in</h3><p>Human-like mouse movement, gaussian delays, fingerprint masking, CAPTCHA cooldowns.</p></div>
+    <div class="card"><h3>🔁 Resumable</h3><p>Already-scraped places are skipped on re-runs via a SQLite dedup database.</p></div>
+    <div class="card"><h3>🎛️ Filters</h3><p>Review count, rating, must/must-not have website or phone — applied before writing.</p></div>
+    <div class="card"><h3>📍 Bulk locations</h3><p>Import a CSV of cities or add them manually as chips in the GUI.</p></div>
+    <div class="card"><h3>📊 Dual output</h3><p>Excel-friendly CSV per run plus a SQLite database per keyword.</p></div>
+  </div>
+
+  <h2>Quick start</h2>
+  <pre><code>git clone https://github.com/krishna-designwork/local-business-scraper.git
+cd local-business-scraper
+pip install -r requirements.txt
+playwright install chromium
+python gui.py</code></pre>
+
+  <h2>How it works</h2>
+  <ol>
+    <li>Enter a search keyword (e.g. "dentist") and add locations</li>
+    <li>Pick results per location, parallel workers, and optional filters</li>
+    <li>Hit Start — real Chromium windows scrape Google Maps with human-like behavior</li>
+    <li>Grab your CSV from the <code>outputs/</code> folder</li>
+  </ol>
+
+  <h2>Output columns</h2>
+  <pre><code>keyword, location, city, state, country, name, category, address,
+phone, website, website_type, rating, review_count, hours, schedule,
+latitude, longitude, place_url, scraped_at, reviews</code></pre>
+
+  <footer>
+    MIT License · Use responsibly and in accordance with Google's Terms of Service and applicable laws.
+    · <a href="https://github.com/krishna-designwork/local-business-scraper">github.com/krishna-designwork/local-business-scraper</a>
+  </footer>
+</div>
+</body>
+</html>
