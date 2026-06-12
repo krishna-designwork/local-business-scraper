@@ -30,7 +30,7 @@ class App(ConfigMixin, LocationMixin, RunMixin, ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Maps Scraper")
-        self.geometry("1120x680")
+        self.geometry("1120x830")
         self.minsize(820, 480)
         self.configure(fg_color=BG_APP)
         self.after(150, lambda: (self.wm_attributes('-topmost', True), self.focus_force()))
@@ -69,7 +69,7 @@ class App(ConfigMixin, LocationMixin, RunMixin, ctk.CTk):
         sb.grid(row=0, column=0, sticky="nsew")
         sb.grid_propagate(False)
         sb.grid_columnconfigure(0, weight=1)
-        sb.grid_rowconfigure(5, weight=1)
+        sb.grid_rowconfigure(3, weight=1)
 
         # Brand
         brand = ctk.CTkFrame(sb, fg_color="transparent")
@@ -85,9 +85,16 @@ class App(ConfigMixin, LocationMixin, RunMixin, ctk.CTk):
         ctk.CTkFrame(sb, height=1, fg_color=BD).grid(
             row=2, column=0, sticky="ew", padx=0, pady=(8, 0))
 
+        # Scrollable body so the sidebar works on short screens
+        body = ctk.CTkScrollableFrame(
+            sb, fg_color="transparent",
+            scrollbar_button_color=BD, scrollbar_button_hover_color=TX_MUT)
+        body.grid(row=3, column=0, sticky="nsew")
+        body.grid_columnconfigure(0, weight=1)
+
         # ── Search config ──────────────────────────────────────────────────────
-        cfg_frame = ctk.CTkFrame(sb, fg_color="transparent")
-        cfg_frame.grid(row=3, column=0, sticky="ew")
+        cfg_frame = ctk.CTkFrame(body, fg_color="transparent")
+        cfg_frame.grid(row=0, column=0, sticky="ew")
         cfg_frame.grid_columnconfigure(0, weight=1)
 
         section_label(cfg_frame, "SEARCH")
@@ -238,12 +245,12 @@ class App(ConfigMixin, LocationMixin, RunMixin, ctk.CTk):
         self._filter_min_rev.bind("<FocusOut>", _clamp_entry(self._filter_min_rev, 0, 10_000_000, is_float=False))
         self._filter_max_rev.bind("<FocusOut>", _clamp_entry(self._filter_max_rev, 0, 10_000_000, is_float=False))
 
-        ctk.CTkFrame(sb, height=1, fg_color=BD).grid(
-            row=4, column=0, sticky="ew", padx=0, pady=(4, 0))
+        ctk.CTkFrame(body, height=1, fg_color=BD).grid(
+            row=1, column=0, sticky="ew", padx=0, pady=(4, 0))
 
         # ── Locations ──────────────────────────────────────────────────────────
-        loc_frame = ctk.CTkFrame(sb, fg_color="transparent")
-        loc_frame.grid(row=5, column=0, sticky="nsew")
+        loc_frame = ctk.CTkFrame(body, fg_color="transparent")
+        loc_frame.grid(row=2, column=0, sticky="nsew")
 
         section_label(loc_frame, "LOCATIONS")
 
@@ -288,16 +295,16 @@ class App(ConfigMixin, LocationMixin, RunMixin, ctk.CTk):
         self._loc_count.pack(anchor="w", padx=16, pady=(0, 4))
 
         self._chip_frame = ctk.CTkScrollableFrame(
-            loc_frame, fg_color="transparent",
+            loc_frame, fg_color="transparent", height=140,
             scrollbar_button_color=BD, scrollbar_button_hover_color=TX_MUT)
         self._chip_frame.pack(fill="both", expand=True, padx=16, pady=(0, 6))
 
         ctk.CTkFrame(sb, height=1, fg_color=BD).grid(
-            row=6, column=0, sticky="ew", padx=0, pady=(0, 0))
+            row=4, column=0, sticky="ew", padx=0, pady=(0, 0))
 
         # ── Controls ───────────────────────────────────────────────────────────
         ctrl = ctk.CTkFrame(sb, fg_color="transparent")
-        ctrl.grid(row=7, column=0, sticky="ew", padx=16, pady=(10, 16))
+        ctrl.grid(row=5, column=0, sticky="ew", padx=16, pady=(10, 16))
         ctrl.grid_columnconfigure(0, weight=1)
 
         self._start_btn = ctk.CTkButton(
