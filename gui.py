@@ -30,10 +30,10 @@ class App(ConfigMixin, LocationMixin, RunMixin, ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Maps Scraper")
-        self.geometry("1120x830")
+        self.geometry("1120x830+150+40")
         self.minsize(820, 480)
         self.configure(fg_color=BG_APP)
-        self.after(150, lambda: (self.wm_attributes('-topmost', True), self.focus_force()))
+        self.after(150, self.focus_force)
 
         self._q:             queue.Queue    = queue.Queue()
         self._stop_event   = threading.Event()
